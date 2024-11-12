@@ -4,8 +4,8 @@ Code demonstrated in the Create AsyncAPIs with MuleSoft and Salesforce Platform 
 
 ## Similar repos
 
-[![](https://github-readme-stats.vercel.app/api/pin/?username=alexandramartinez&repo=my-process-api-munits&theme=jolly)](https://github.com/alexandramartinez/my-process-api-munits)
-[![](https://github-readme-stats.vercel.app/api/pin/?username=alexandramartinez&repo=asyncapis-accounts-email&theme=jolly)](https://github.com/alexandramartinez/asyncapis-accounts-email)
+[![](https://github-readme-stats.vercel.app/api/pin/?username=alexandramartinez&repo=asyncapis-accounts-email&theme=material-palenight)](https://github.com/alexandramartinez/asyncapis-accounts-email)
+[![](https://github-readme-stats.vercel.app/api/pin/?username=alexandramartinez&repo=my-process-api-munits&theme=holi)](https://github.com/alexandramartinez/my-process-api-munits)
 
 ## Use case
 
