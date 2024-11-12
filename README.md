@@ -2,6 +2,11 @@
 
 Code demonstrated in the Create AsyncAPIs with MuleSoft and Salesforce Platform Events blog post.
 
+## Similar repos
+
+[![](https://github-readme-stats.vercel.app/api/pin/?username=alexandramartinez&repo=my-process-api-munits&theme=jolly)](https://github.com/alexandramartinez/my-process-api-munits)
+[![](https://github-readme-stats.vercel.app/api/pin/?username=alexandramartinez&repo=asyncapis-accounts-email&theme=jolly)](https://github.com/alexandramartinez/asyncapis-accounts-email)
+
 ## Use case
 
 You have your Salesforce organization up and running. You have a custom object called `MuleSoft User` with a few fields to identify the users.
