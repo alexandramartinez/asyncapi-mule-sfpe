@@ -269,9 +269,4 @@ It really depends on the availability of the external system and on the resource
 
 This is just one example of how you can best make use of Salesforce and MuleSoft EDA resources. You would think that these types of slow/unreliable external systems are not common, but they are more common than you think! It’s always good to know how to handle these scenarios with different toolkits.
 
-Next step? Creating MUnits for this! That would be a fun challenge. Check out the following resources to keep learning about AsyncAPI and other similar examples.
-
-## Other resources
-
-[![](https://github-readme-stats.vercel.app/api/pin/?username=alexandramartinez&repo=my-process-api-munits&theme=jolly)](https://github.com/alexandramartinez/my-process-api-munits)
-[![](https://github-readme-stats.vercel.app/api/pin/?username=alexandramartinez&repo=asyncapis-accounts-email&theme=jolly)](https://github.com/alexandramartinez/asyncapis-accounts-email)
+Next step? Creating MUnits for this! That would be a fun challenge. 
