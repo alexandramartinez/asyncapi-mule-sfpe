@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit-asyncapi="http://www.mulesoft.org/schema/mule/apikit-asyncapi" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:salesforce-pub-sub="http://www.mulesoft.org/schema/mule/salesforce-pub-sub" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/apikit-asyncapi http://www.mulesoft.org/schema/mule/apikit-asyncapi/current/mule-apikit-asyncapi.xsd http://www.mulesoft.org/schema/mule/salesforce-pub-sub http://www.mulesoft.org/schema/mule/salesforce-pub-sub/current/mule-salesforce-pub-sub.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+  <salesforce-pub-sub:pubsub-config name="Salesforce_Platform_Events_configuration_Salesforce">
+    <salesforce-pub-sub:basic-connection username="${salesforcepubsub.server.Salesforce.username}" password="${salesforcepubsub.server.Salesforce.password}" securityToken="${salesforcepubsub.server.Salesforce.securityToken}">
+      <reconnection failsDeployment="${salesforcepubsub.server.Salesforce.reconnection.failsDeployment}">
+        <reconnect count="${salesforcepubsub.server.Salesforce.reconnection.reconnect.count}" />
+      </reconnection>
+    </salesforce-pub-sub:basic-connection>
+  </salesforce-pub-sub:pubsub-config>
+  <configuration-properties file="${env}-properties.properties" />
+  <global-property name="env" value="dev" />
+  <apikit-asyncapi:config name="asyncapi-config" apiDefinition="${api.path}">
+    <apikit-asyncapi:salesforce-pub-sub-configs>
+      <apikit-asyncapi:salesforce-pub-sub-config serverKey="Salesforce" configRef="Salesforce_Platform_Events_configuration_Salesforce" />
+    </apikit-asyncapi:salesforce-pub-sub-configs>
+  </apikit-asyncapi:config>
+</mule>

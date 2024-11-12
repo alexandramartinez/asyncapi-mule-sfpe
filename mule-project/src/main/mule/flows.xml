@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit-asyncapi="http://www.mulesoft.org/schema/mule/apikit-asyncapi" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/apikit-asyncapi http://www.mulesoft.org/schema/mule/apikit-asyncapi/current/mule-apikit-asyncapi.xsd http://www.mulesoft.org/schema/mule/salesforce-pub-sub http://www.mulesoft.org/schema/mule/salesforce-pub-sub/current/mule-salesforce-pub-sub.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+	http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+  <flow name="LISTEN:onUserCreate">
+    <apikit-asyncapi:message-listener config-ref="asyncapi-config" channelName="/event/Process_Mule_User__e" doc:name="Process Mule User">
+      <apikit-asyncapi:servers>
+        <apikit-asyncapi:server value="Salesforce" />
+      </apikit-asyncapi:servers>
+    </apikit-asyncapi:message-listener>
+    <set-variable variableName="MuleUser" value="#[payload]" doc:name="MuleUser" doc:id="zlhhis" />
+    <until-successful doc:name="Retry connection" doc:id="rforop">
+      <try doc:id="bketaj">
+        <logger doc:name="External System" doc:id="dbtgus" />
+        <error-handler>
+          <on-error-propagate type="CONNECTIVITY" doc:name="Connection error">
+            <logger doc:name="Retry" doc:id="trqdbn" />
+          </on-error-propagate>
+          <on-error-continue type="ANY" doc:name="Any other error">
+            <logger doc:name="Do not retry" doc:id="nflqsy" />
+          </on-error-continue>
+        </error-handler>
+      </try>
+    </until-successful>
+    <ee:transform doc:name="New payload" doc:id="txlkzu">
+      <ee:message>
+        <ee:set-payload>
+          <![CDATA[
+output application/json
+---
+[{
+  CreatedById: vars.MuleUser.event.CreatedById,
+  CreatedDate: now() as Number,
+  Email__c: vars.MuleUser.event."Email__c",
+  Notes__c: "User has been processed."
+}]
+]]>
+        </ee:set-payload>
+      </ee:message>
+    </ee:transform>
+    <apikit-asyncapi:publish config-ref="asyncapi-config" channelName="/event/Update_Mule_User__e" serverName="Salesforce" doc:name="Update Mule User" doc:id="ocapkv" />
+    <error-handler>
+      <on-error-propagate>
+        <logger doc:name="Future processing" doc:id="tgnfcr" />
+      </on-error-propagate>
+    </error-handler>
+  </flow>
+</mule>

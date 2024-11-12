@@ -1,0 +1,108 @@
+asyncapi: '2.6.0'
+info:
+  title: Salesforce Platform Events Integration
+  version: '1.0.0'
+  description: Subscribed to receive the Process_Mule_User__e Platform Event and return the Update_Mule_User__e Platform Event after the data is processed.
+  contact:
+    name: Alex Martinez
+    email: alexandra.martinez@salesforce.com
+    url: alexmartinez.ca
+  license:
+    name: test
+    url: test
+defaultContentType: application/json
+tags:
+  -
+    name: salesforce
+    description: makes use of Salesforce Platform Events
+servers:
+  Salesforce:
+    protocol: salesforcepubsub
+    protocolVersion: v1
+    url: api.pubsub.salesforce.com
+channels:
+  /event/Process_Mule_User__e:
+    publish:
+      description: Subscribed to receive the Process_Mule_User__e Platform Event to process it.
+      operationId: onUserCreate
+      message:
+        $ref: "#/components/messages/ProcessMuleUser"
+  /event/Update_Mule_User__e:
+    subscribe:
+      description: Publishes the Update_Mule_User__e Platform Event after the data is processed to be updated in Salesforce.
+      operationId: afterUserProcessed
+      message:
+        $ref: "#/components/messages/UpdateMuleUser"
+components:
+  messages:
+    UpdateMuleUser:
+      payload:
+        type: array
+        items:
+          type: object
+          properties:
+            CreatedById:
+              type: string
+              examples:
+                - 005aj8VZWLAA4
+            CreatedDate:
+              type: number
+              examples: 
+                - 1731036421
+            Email__c:
+              type: string
+              examples:
+                - fake@email.email
+            Notes__c:
+              type: string
+              examples:
+                - User has been processed.
+    ProcessMuleUser:
+      payload:
+        type: object
+        properties:
+          eventId:
+            type: string
+            examples:
+              - "79613760-7af7-4da1-80f5-1adf02218e4c"
+          replayId:
+            type: number
+            examples:
+              - 1234
+          event:
+            type: object
+            properties:
+              CreatedDate:
+                type: number
+                examples:
+                  - 1729782090541
+              CreatedById:
+                type: string
+                examples:
+                  - "005aj8VZWLAA4"
+              MuleSoft_User_Name__c:
+                type: string
+                examples:
+                  - Alex Martinez
+              DOB:
+                type:
+                  - number
+                  - "null"
+                examples:
+                  - null
+                  - 1.7306784E+12
+              Email__c:
+                type: string
+                examples:
+                  - fake@email.email
+              Notes__c:
+                type: 
+                  - string
+                  - "null"
+                examples:
+                  - null
+                  - User hasn't been processed.
+              Role__c:
+                type: string
+                examples:
+                  - Ambassador
